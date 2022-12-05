@@ -146,7 +146,7 @@ final class DatabaseFiller
 
         if ( ! $this->bDebug)
         {
-            if ( ! isset($aConfig['host']) || ! isset($aConfig['database']) || ! isset($aConfig['username']) || ! isset($aConfig['password']))
+            if ( ! isset($aConfig['db_details']['host']) || ! isset($aConfig['db_details']['database']) || ! isset($aConfig['db_details']['username']) || ! isset($aConfig['db_details']['password']))
             {
                 $this->aMessages[] = 'Database connection details have not been fully specified in the configuration array.';
                 return;
@@ -157,14 +157,14 @@ final class DatabaseFiller
                 $this->sEncoding = $aConfig['encoding'];
             }
 
-            $this->oConnection = new mysqli($aConfig['host'], $aConfig['username'], $aConfig['password'], $aConfig['database']);
+            $this->oConnection = new mysqli(...array_values($aConfig['db_details']));
 
             if ($this->oConnection->connect_errno === 0)
             {
                 $this->oConnection->set_charset($this->sEncoding);
                 $this->bActiveConnection = true;
 
-                $this->sUsername = $aConfig['username'];
+                $this->sUsername = $aConfig['db_details']['username'];
             }
             else
             {

@@ -27,11 +27,17 @@ $aConfiguration =
     'num_rows' => 10,
         // optimise mysqld variables in my.cnf/my.ini files when inserting a large number of rows (e.g. 50000)
 
-    # database details
-    'host'     => 'localhost',
-    'database' => 'dbfilltest',
-    'username' => 'USERNAME',
-    'password' => 'PASSWORD',
+    # database details, keep the order
+    # port = int|null
+    # socket = string|null
+    'db_details' => [
+        'host' => 'localhost',
+        'username' => 'USERNAME',
+        'password' => 'PASSWORD',
+        'database' => 'dbfilltest',
+        'port' => NULL,
+        'socket' => NULL
+    ],
 
     # schema file
     'schema_file' => 'test.sql',
